@@ -1,3 +1,4 @@
+import 'package:alarma_mobile/crear_tarea.dart';
 import 'package:alarma_mobile/main.dart';
 import 'package:flutter/material.dart';
 
@@ -147,7 +148,7 @@ class _CrearProyectoState extends State<CrearProyecto> {
                                 hintStyle: TextStyle(color: Color.fromARGB(255, 153, 153, 153), fontSize: 16),
                                 border: InputBorder.none,
                               ),
-                              textAlign: TextAlign.center, 
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ],
@@ -201,9 +202,7 @@ class _CrearProyectoState extends State<CrearProyecto> {
                           size: 45,
                         ),
                         onPressed: () {
-                          setState(() {
-                            nombresTareas.add('Nueva Tarea'); // Agrega una nueva tarea
-                          });
+                          Navigator.push<String>(context, MaterialPageRoute(builder: (context) => const CrearTarea()));
                         },
                       ),
                     ],
@@ -290,12 +289,12 @@ class _CrearProyectoState extends State<CrearProyecto> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 153, 153, 153),
-                        minimumSize: const Size(147, 58),
+                        minimumSize: const Size(147, 68),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text('Cancelar', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Inter'),textAlign: TextAlign.center),
+                      child: const Text('Cancelar', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Inter',height: 1),textAlign: TextAlign.center),
                     ),
                     const SizedBox(width: 20),
                     ElevatedButton(
@@ -311,7 +310,7 @@ class _CrearProyectoState extends State<CrearProyecto> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 252, 134, 83),
-                        minimumSize: const Size(147, 58),
+                        minimumSize: const Size(147, 68),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

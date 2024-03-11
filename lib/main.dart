@@ -1,4 +1,5 @@
 import 'package:alarma_mobile/crear_proyecto.dart';
+import 'package:alarma_mobile/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255,67, 62, 63)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Proyectos '),
+      home:const MyHomePage(title: 'Proyectos') ,
     );
   }
 }
@@ -42,7 +43,7 @@ class Proyecto {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  bool isAuthenticated = false; // Estado de autenticación
   List<Map<String, dynamic>> listaDeProyectos = [
     {'nombre': 'Proyecto 1', 'numeroTareas': 9, 'fechaEntrega': 'Jun 20, 2023'},
     {'nombre': 'Proyecto 2', 'numeroTareas': 2, 'fechaEntrega': 'Jun 20, 2023'},
@@ -56,8 +57,19 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _login() {
+    setState(() {
+      isAuthenticated = true; // Establece isAuthenticated en true al iniciar sesión
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    return isAuthenticated
+        ? _buildAuthenticatedHomePage()
+        : LoginPage(onLogin: _login); // Muestra LoginPage si no está autenticado
+  }
+  Widget _buildAuthenticatedHomePage() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 67, 62, 63),

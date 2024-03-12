@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:alarma_mobile/recuperar_contrasena.dart';
 
-class LoginPage extends StatelessWidget {
-  final VoidCallback onLogin;
+class RecuperarContrasena extends StatefulWidget {
+  const RecuperarContrasena({Key? key}) : super(key: key);
 
-  const LoginPage({Key? key, required this.onLogin}) : super(key: key);
+  @override
+  State<RecuperarContrasena> createState() => _RecuperarContrasenaState();
+}
+
+class _RecuperarContrasenaState extends State<RecuperarContrasena> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,19 +50,28 @@ class LoginPage extends StatelessWidget {
                               ),
                               child:  Icon(Icons.alarm_on, size: 65, color: Colors.white),
                             ),
-                            Text(
-                            'Ingreso',
-                            style: TextStyle(color: Colors.white, fontSize: 34, fontWeight: FontWeight.bold, fontFamily: 'Inter'),
-                          ),
+                            Center(
+                              child: Text(
+                                'Recuperar tu Contraseña',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 34,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                            ),
                      
                           Text(
-                            'Bienvenido otra vez,\ningresa tus credenciales', 
+                            '¿Extraviaste o olvidaste tu \n contraseña? No te preocupes ...', 
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Inter'),
                           ),
                           
                           SizedBox(height: 24.0),
                           TextField(
+                            controller: _emailController,
                             decoration: InputDecoration(
                               labelText: 'Correo Electrónico',
                               hintText: 'Ingresa tu email',
@@ -79,57 +94,51 @@ class LoginPage extends StatelessWidget {
                               fontSize: 16.0,
                               fontFamily: 'Inter',
                             ),
+                            
                           ),
                           
-                          SizedBox(height: 16.0),
-                          TextField(
-                            obscureText: true, // Hide password characters
-                            decoration: InputDecoration(
-                              labelText: 'Contraseña',
-                              hintText: 'Ingresa tu contraseña',
-                              border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                          SizedBox(height: 100.0),
+                          
+                           Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {Navigator.pop(context);
+                          },
+                          child: Text(
+                            'VOLVER',
+                             style: TextStyle(
+                                  color: Colors.white, // Set the text color
+                                  fontSize: 20, // Set the font size
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Inter', // Set the font weight
+                                ),),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(104, 68),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
-                            labelStyle: TextStyle(
-                              color: Colors.grey, // Personaliza el color de la etiqueta
-                              fontSize: 14.0, // Ajusta el tamaño de la fuente de la etiqueta
-                              fontFamily: 'Inter', // Usa la misma fuente que el texto del campo
-                            ),
-                            hintStyle: TextStyle(
-                              color: Colors.grey.shade400, // Personaliza el color del texto de sugerencia
-                              fontSize: 14.0, // Ajusta el tamaño de la fuente del texto de sugerencia
-                              fontFamily: 'Inter', // Usa la misma fuente que el texto del campo
-                            ),
+                            backgroundColor: Color.fromRGBO(153, 153, 153, 1), // Color del fondo del botón izquierdo
                           ),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontFamily: 'Inter',
-                          ),
-                          ),
-                          SizedBox(height: 24.0),
-                          TextButton(
-                            onPressed: () {Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => RecuperarContrasena()),
-                                          );}, 
-                            child: Text(
-                              '¿Olvidaste tu contraseña?',
-                              style: TextStyle(color: Color.fromARGB(255, 252, 134, 83)), // Cambia el color del texto a azul y alinea a la izquierda
-                            ),
-                          ),
-                          SizedBox(height: 16.0),
+                        ),
                           ElevatedButton(
                             
-                            onPressed: onLogin,
-                            child: Text('INGRESAR', style: TextStyle(
+                            onPressed: (){
+                                // Implementar la lógica para enviar el correo electrónico de recuperación de contraseña
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Se ha enviado un correo electrónico para recuperar tu contraseña'),
+                                  ),
+                                );
+                              },
+                            child: Text('ENVIAR', style: TextStyle(
                                   color: Colors.white, // Set the text color
                                   fontSize: 20, // Set the font size
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Inter', // Set the font weight
                                 ),),
                             style: ElevatedButton.styleFrom(
-                              minimumSize: Size(200, 68), // Set width and height
+                              minimumSize: Size(104, 68), // Set width and height
                                shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
@@ -138,12 +147,13 @@ class LoginPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
-            ),
-          ),
-      
-            ],
-      ),
+                    ]
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
     );
   }
 }

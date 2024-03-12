@@ -29,18 +29,13 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class Tarea {
-  String nombre;
-  Tarea(this.nombre);
-}
-
 class Proyecto {
   String nombre;
   String fecha;
-  List<Tarea> listaTareas;
-  Proyecto(this.nombre, this.fecha, this.listaTareas);
-}
+  int cantidadDeTareas;
 
+  Proyecto({required this.nombre, required this.fecha, required this.cantidadDeTareas});
+}
 
 class _MyHomePageState extends State<MyHomePage> {
   bool isAuthenticated = false; // Estado de autenticación
@@ -91,7 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 40,
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CrearProyecto()));
+              Navigator.push<Proyecto>(context, MaterialPageRoute(builder: (context) => const CrearProyecto()))
+              .then((nuevoProyecto) {
+                if (nuevoProyecto != null) {
+                  // Agrega el nuevo proyecto a la lista de proyectos
+                  setState(() {
+                    listaDeProyectos.add({
+                      'nombre': nuevoProyecto.nombre,
+                      'numeroTareas': nuevoProyecto.cantidadDeTareas,
+                      'fechaEntrega': nuevoProyecto.fecha,
+                    });
+                  });
+                }
+              });
             },
           ),
         ]

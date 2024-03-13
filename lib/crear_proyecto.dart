@@ -202,7 +202,14 @@ class _CrearProyectoState extends State<CrearProyecto> {
                           size: 45,
                         ),
                         onPressed: () {
-                          Navigator.push<String>(context, MaterialPageRoute(builder: (context) => const CrearTarea()));
+                          Navigator.push<List<String>>(context, MaterialPageRoute(builder: (context) => const CrearTarea()))
+                          .then((tareas) {
+                            if (tareas != null) {
+                              setState(() {
+                                nombresTareas.addAll(tareas);
+                              });
+                            }
+                          });
                         },
                       ),
                     ],
@@ -299,7 +306,6 @@ class _CrearProyectoState extends State<CrearProyecto> {
                     const SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () {
-
                         Proyecto nuevoProyecto = Proyecto(
                           nombre: nombreController.text,
                           fecha: selectedDate,

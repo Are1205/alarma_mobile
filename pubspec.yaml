@@ -64,8 +64,10 @@ flutter:
   assets:
     - assets/Alarma.svg
     - assets/Proyectos.svg
-    - assets/Vector.svg
-
+    - assets/Alarma.png
+    - assets/Ubicacion.svg
+    - assets/Ubicacion.png
+    - assets/calendar.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

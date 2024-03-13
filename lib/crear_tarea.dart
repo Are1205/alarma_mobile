@@ -12,6 +12,11 @@ class CrearTarea extends StatefulWidget {
 }
 
 class _CrearTareaState extends State<CrearTarea> {
+    // Declare the text editing controllers
+  final TextEditingController _nombreController = TextEditingController();
+  final TextEditingController _ubicacionController = TextEditingController();
+  List<String> tareas = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +69,9 @@ class _CrearTareaState extends State<CrearTarea> {
                               bottom: BorderSide(color: Color(0xFF999999), width: 0.33),
                             ),
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Expanded(
+                              const Expanded(
                                 flex:4,
                                 child: Text(
                                   '  Nombre:',
@@ -76,8 +81,9 @@ class _CrearTareaState extends State<CrearTarea> {
                               Expanded(
                                 flex: 6,
                                 child: TextField(
-                                  style: TextStyle(color: Color.fromARGB(255, 204, 204, 204)),
-                                  decoration: InputDecoration(
+                                  controller: _nombreController,
+                                  style: const TextStyle(color: Color.fromARGB(255, 204, 204, 204)),
+                                  decoration: const  InputDecoration(
                                     hintText: 'Nombre de la tarea',
                                     hintStyle: TextStyle(color: Color.fromARGB(255, 153, 153, 153), fontSize: 16),
                                     border: InputBorder.none,
@@ -90,14 +96,14 @@ class _CrearTareaState extends State<CrearTarea> {
                         ),
                       ),
                       IconButton(
-                        icon: SvgPicture.asset(
-                          'assets/Alarma.svg',
-                          height: 60,
-                          width: 60,
+                        icon: Image.asset(
+                          'assets/Alarma.png',
+                          height: 70,
+                          width: 70,
                         ),
                         onPressed: () {
                         },
-                      ),
+                      )
                     ]
                   ),
                   //Botones de fecha y hora
@@ -115,7 +121,18 @@ class _CrearTareaState extends State<CrearTarea> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: const Text('Día', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Inter', height: 1),textAlign: TextAlign.center)
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center, // Centra los elementos en la fila
+                              children: [
+                                Image.asset(
+                                  'assets/calendar.png',
+                                  height: 24,
+                                  width: 24,
+                                ), // Imagen
+                                const SizedBox(width: 4), // Espacio entre la imagen y el texto
+                                const Text('Día', style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold,fontFamily: 'Inter', height: 1),textAlign: TextAlign.center)
+                              ],
+                            ),
                           )
                         ),
                         const SizedBox(width: 10),
@@ -154,11 +171,11 @@ class _CrearTareaState extends State<CrearTarea> {
                     children:[
                       IconButton(
                         icon: Image.asset(
-                          'assets/images/Alarma.png',
-                          height: 60,
-                          width: 60,
+                          'assets/Ubicacion.png',
+                          height: 70,
+                          width: 70,
                         ),
-                        onPressed: () { 
+                        onPressed: () {
                         },
                       ),
                       Expanded(
@@ -170,9 +187,9 @@ class _CrearTareaState extends State<CrearTarea> {
                               bottom: BorderSide(color: Color(0xFF999999), width: 0.33),
                             ),
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Expanded(
+                              const  Expanded(
                                 flex:4,
                                 child: Text(
                                   ' Ubicación:',
@@ -182,8 +199,9 @@ class _CrearTareaState extends State<CrearTarea> {
                               Expanded(
                                 flex: 6,
                                 child: TextField(
-                                  style: TextStyle(color: Color.fromARGB(255, 204, 204, 204)),
-                                  decoration: InputDecoration(
+                                  controller: _ubicacionController,
+                                  style: const TextStyle(color: Color.fromARGB(255, 204, 204, 204)),
+                                  decoration: const InputDecoration(
                                     hintText: 'Ingrese la Ubicación',
                                     hintStyle: TextStyle(color: Color.fromARGB(255, 153, 153, 153), fontSize: 16),
                                     border: InputBorder.none,
@@ -201,7 +219,7 @@ class _CrearTareaState extends State<CrearTarea> {
               )
             )
           ),
-                    Positioned(
+          Positioned(
             child: Container(
               margin: const EdgeInsets.only(top: 550),
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -210,7 +228,9 @@ class _CrearTareaState extends State<CrearTarea> {
                 children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                          tareas.add(_nombreController.text);
+                          _nombreController.clear();
+                          _ubicacionController.clear();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 153, 153, 153),
@@ -224,6 +244,11 @@ class _CrearTareaState extends State<CrearTarea> {
                     const SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () {
+                          if (_nombreController.text.isNotEmpty) {
+                            // Agregar a tareas
+                            tareas.add(_nombreController.text);
+                          }
+                        Navigator.pop(context, tareas);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 252, 134, 83),

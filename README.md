@@ -9,6 +9,7 @@ Extensiones de VSCode utilizadas:
     Complete Flutter Extension Pack
 
 Recomandaciones de uso:
+
     revisar versión de flutter
     correr comando flutter doctor
     revisar que andorid studio aparezca bien configurado

@@ -13,4 +13,4 @@ Recomandaciones de uso:
     revisar versión de flutter
     correr comando flutter doctor
     revisar que andorid studio aparezca bien configurado
-    correr el poryecto en flutter directamente desde VSCode
+    correr el proyecto en flutter directamente desde VSCode
